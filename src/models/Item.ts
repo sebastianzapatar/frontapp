@@ -1,4 +1,5 @@
 export interface Item{
+    _id:string,
     color:string,
     gas:string,
     price:number,

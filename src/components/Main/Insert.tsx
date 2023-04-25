@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { Item } from '../../models/Item';
 import { url } from '../utilities/url';
+import { useParams } from 'react-router-dom';
 
 
 
 const initialState:Item={
+    _id:'',
     color:'',
     gas:'',
     price:0,
@@ -14,9 +16,22 @@ const initialState:Item={
     name:''
 }
 export const Insert = () => {
-  const insertar:string=url+'items';
+  const insertar:string=url+'items/';
+  const {id}=useParams();
+  console.log(id);
   
   const [item, setitem] = useState<Item>(initialState);
+  const getItem=async()=>{
+    const respuesta=await fetch(insertar+'/'+id);
+    const data=await respuesta.json();
+    setitem(data);
+  }
+  useEffect(() => {
+    if(id!==undefined){
+      getItem();
+    }
+  }, [])
+  
   const {color,gas,price,year,description,name}=item;
   const handleInput=(e:React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>)=>{
        setitem({...item,[e.target.name]:e.target.value})
@@ -34,7 +49,7 @@ export const Insert = () => {
    }).then(resp=>{
        console.log(resp);
        Swal.fire(
-           'Se inserto el estudiante',
+           'Se inserto el item',
            name+" "+color,
            'success'
        )
@@ -44,10 +59,30 @@ export const Insert = () => {
       })    
    
   }
-  
+  const handleEdit=(e: React.SyntheticEvent)=>{
+    e.preventDefault();
+    console.log('editar');
+    console.log(JSON.stringify(item));
+    
+    fetch(insertar+id,{method:"PUT",
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(item)
+   }).then(resp=>{
+       console.log(resp);
+       Swal.fire(
+           'Se edito el item',
+           name+" "+color,
+           'success'
+       )
+       reset();
+      }).catch(e=>{
+        console.log(e);
+      })    
+   
+  }
   return (
     <div>
-    <form className="justify-content-center" onSubmit={handleSubmit}>
+    <form className="justify-content-center" >
         <div className="mb-3">
             <label htmlFor="color"
             className="form-label">Color </label>
@@ -119,11 +154,14 @@ export const Insert = () => {
             
         </div>
         <div className="mb-3">
-            
-            <button
+        {id && <button
             type="submit"
             className="btn btn-primary"
-            >Guardar</button>
+            onClick={handleEdit}>Editar</button>}
+        {!id && <button
+            type="submit"
+            className="btn btn-primary"
+            onClick={handleSubmit}>Guardar</button>}    
         </div>
     </form>
 </div>

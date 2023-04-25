@@ -16,7 +16,7 @@ export const RouterApp = () => {
                     <Route path="listar" element={<ShowCars/>}/>
                     <Route path="agregar" element={<Insert/>}/>
                     <Route path="acercade" element={<Acercade/>}/>
-                    <Route path="editar" element={<Insert/>}/>
+                    <Route path="editar/:id" element={<Insert/>}/>
                 </Routes>
             </Router>
   )

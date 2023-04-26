@@ -29,6 +29,8 @@ export const Car = ({item}:Childer) => {
                     'Your file has been deleted.',
                     'success'
                   )
+                  console.log(response);
+                  
                   {
                     return (<Navigate to="/home" replace={true} />)
                   }

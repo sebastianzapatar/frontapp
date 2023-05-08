@@ -16,7 +16,7 @@ const initialState:Item={
     name:''
 }
 export const Insert = () => {
-  const insertar:string=url+'items/';
+  const insertar=url+'items/';
   const {id}=useParams();
   console.log(id);
   
@@ -30,10 +30,11 @@ export const Insert = () => {
     if(id!==undefined){
       getItem();
     }
-  }, [])
+  })
   
   const {color,gas,price,year,description,name}=item;
-  const handleInput=(e:React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>)=>{
+  const handleInput=(e:
+    React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>)=>{
        setitem({...item,[e.target.name]:e.target.value})
   }
   const reset=()=>{
@@ -41,11 +42,9 @@ export const Insert = () => {
   }
   const handleSubmit=(e: React.SyntheticEvent)=>{
     e.preventDefault();
-    console.log(JSON.stringify(item));
-    
     fetch(insertar,{method:"POST",
         headers:{'Content-Type':'application/json'},
-        body:JSON.stringify(item)
+        body:JSON.stringify({color,gas,price,year,description,name})
    }).then(resp=>{
        console.log(resp);
        Swal.fire(

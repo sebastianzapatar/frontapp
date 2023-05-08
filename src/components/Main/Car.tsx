@@ -9,7 +9,7 @@ interface Childer{
 export const Car = ({item}:Childer) => {
   const borrar=async(id:string)=>{
     const delete1=url+'items/'+id;
-    console.log(delete1);
+    
     Swal.fire({
         title: 'Estas seguro',
         text: "No puedes desahcer esto",
@@ -53,7 +53,8 @@ export const Car = ({item}:Childer) => {
         <h4 className="card-title">Modelo: { item.year}</h4>
         <p className="card-text">{item.description} </p>
         <Link to={'/editar/'+item._id} className="btn btn-primary">Editar</Link>
-        <button onClick={()=>borrar(item._id)} className="btn btn-danger">Borrar</button>
+        <button onClick={()=>borrar(item._id)} 
+        className="btn btn-danger">Borrar</button>
     </div>
     </div>
     </>

@@ -1,4 +1,4 @@
-import {useState,useEffect} from 'react';
+import {useState,useEffect, useLayoutEffect} from 'react';
 import { url } from '../utilities/url';
 import { Item } from '../../models/Item';
 import { Car } from './Car';
@@ -12,7 +12,8 @@ export const ShowCars = () => {
   }
   useEffect(() => {
     pedir();
-  }, [productos])
+  })
+  
   return (
     <>
       {productos.map(producto=>{

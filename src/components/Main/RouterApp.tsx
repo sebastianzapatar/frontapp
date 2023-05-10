@@ -1,5 +1,10 @@
 import { BrowserRouter as Router
-    , Route, Routes } from "react-router-dom"
+    , Route, Routes} from "react-router-dom"
+
+
+interface RouteMeta {
+  auth?: boolean;
+}
 import { Home } from "./Home"
 import { Acercade } from "./Acercade"
 import { Insert } from "./Insert"
@@ -8,11 +13,16 @@ import { ShowCars } from "./ShowCars"
 import { Login } from "../Login/Login"
 
 export const RouterApp = () => {
+  
   return (
     <Router>
                 <Menu/>
                 <Routes>
-                    <Route path="home" element={<Home/>}/>
+                <Route
+                path="/dashboard"
+                    element={<Home />}
+              
+          />
                     <Route path="/" element={<Home/>}/>
                     <Route path="listar" element={<ShowCars/>}/>
                     <Route path="agregar" element={<Insert/>}/>

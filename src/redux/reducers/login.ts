@@ -96,3 +96,7 @@ AppThunk=>async(dispatch)=>{
         
     }
 }
+export const logoutUser=():AppThunk=>(dispatch)=>{
+    localStorage.removeItem('isAuth');
+    dispatch(logout());
+}

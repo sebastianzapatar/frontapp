@@ -52,6 +52,7 @@ const authSlice=createSlice({
         }
     }
 })
+
 export const{
     checkingAuth,
     completedAuth,
@@ -63,6 +64,15 @@ export const{
 }=authSlice.actions;
 export default authSlice.reducer;
 
+export const isAuthenticated=():AppThunk=>(dispatch)=>{
+    const local = localStorage.getItem("isAuth");
+
+    const mensaje=JSON.parse(!local?"{}":local);   
+    if(local){
+        dispatch(loginSuccess(mensaje));
+    }
+    return !!local;
+};
 export const login=(username:string,password:string):
 AppThunk=>async(dispatch)=>{
     try {

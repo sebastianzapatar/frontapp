@@ -16,21 +16,24 @@ const initialState:Item={
     name:''
 }
 export const Insert = () => {
+  
   const insertar=url+'items/';
   const {id}=useParams();
-  console.log(id);
-  
   const [item, setitem] = useState<Item>(initialState);
-  const getItem=async()=>{
-    const respuesta=await fetch(insertar+'/'+id);
-    const data=await respuesta.json();
-    setitem(data);
-  }
   useEffect(() => {
     if(id!==undefined){
       getItem();
     }
   })
+  console.log(id);
+ 
+  
+  const getItem=async()=>{
+    const respuesta=await fetch(insertar+'/'+id);
+    const data=await respuesta.json();
+    setitem(data);
+  }
+ 
   
   const {color,gas,price,year,description,name}=item;
   const handleInput=(e:
@@ -79,6 +82,7 @@ export const Insert = () => {
       })    
    
   }
+  
   return (
     <div>
     <form className="justify-content-center" >
